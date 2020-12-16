@@ -1,10 +1,11 @@
-﻿// Homework7.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
+﻿#include <iostream>
 #include "SLList.h"
 #include <ctime>
 using namespace std;
+
+void printSLList(SLList* node);
+void removeDuplicates(SLList* start);
+SLList* getElem(SLList* list, int n);
 
 int main()
 {
@@ -15,16 +16,53 @@ int main()
 		sllist->addElement(rand() % 5 - 0);
 	}
 	printSLList(sllist);
+    cout << endl << getElem(sllist, 6)->m_data << endl;
+    removeDuplicates(sllist);
+    printSLList(sllist);
 	return 0;
 }
 
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
+void printSLList(SLList* node)
+{
+	while (node != nullptr)
+	{
+		cout << node->m_data<< " ";
+		node = node->m_nextElem;
+	}
+}
+void removeDuplicates(SLList* start)
+{
+    SLList* ptr1, * ptr2, * dup;
+    ptr1 = start;
 
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+    /* Pick elements one by one */
+    while (ptr1 != nullptr && ptr1->hasNext())
+    {
+        ptr2 = ptr1;
+
+        /* Compare the picked element with rest
+           of the elements */
+        while (ptr2->hasNext())
+        {
+            /* If duplicate then delete it */
+            if (ptr1->m_data == ptr2->m_nextElem->m_data)
+            {
+                /* sequence of steps is important here */
+                dup = ptr2->m_nextElem;
+                ptr2->m_nextElem = ptr2->m_nextElem->m_nextElem;
+                delete(dup);
+            }
+            else /* This is tricky */
+                ptr2 = ptr2->m_nextElem;
+        }
+        ptr1 = ptr1->m_nextElem;
+    }
+}
+
+SLList* getElem(SLList* list, int n) {
+    SLList* temp = list;
+    for (int i = 0; i < 10 - n; i++) {
+        temp = temp->m_nextElem;
+    }
+    return temp;
+}

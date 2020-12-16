@@ -54,10 +54,3 @@ void SLList::removeNext()
 	}
 	delete(m_nextElem);
 }
-
-void printSLList(SLList* list) {
-	do {
-		cout << list->m_data << " "; // вывод значения элемента p
-		list = list->m_nextElem; // переход к следующему узлу
-	} while (list->m_nextElem != nullptr);
-}
