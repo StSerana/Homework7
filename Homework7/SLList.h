@@ -14,4 +14,3 @@ class SLList
 		SLList* addElement(int data);
 		void removeNext();
 };
-void printSLList(SLList* lis);
