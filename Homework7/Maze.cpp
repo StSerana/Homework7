@@ -104,10 +104,10 @@ void Maze::printMaze()
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
 			if (hasConnection(i, j, i + 1, j)) {
-				cout << right;
+				cout << down;
 			}
 			else if (hasConnection(i, j, i, j + 1)) {
-				cout << down;
+				cout << right;
 			}
 			else {
 				cout << zero;

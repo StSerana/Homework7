@@ -2,12 +2,13 @@
 class MCell
 {
 	private:
-		bool m_down = false;
-		bool m_right = false;
+		bool m_down;
+		bool m_right;
 		MCell();
-		friend class Maze;
+		
 	public:
 		bool right();
 		bool down();
-};
 
+		friend class Maze;
+};
