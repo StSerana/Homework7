@@ -4,6 +4,9 @@
 #include <iostream>
 using namespace std;
 
+Maze::Maze() {
+
+}
 Maze::Maze(int n, int m)
 {
 	MCell* j = new MCell[n * m]();

@@ -5,6 +5,7 @@ class Maze
 private:
 	int horizontal_size = 1;
 	MCell *m_field;
+	Maze();
 public:
 	Maze(int n, int m);
 	~Maze();
