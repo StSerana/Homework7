@@ -7,12 +7,14 @@ MTreeNode::MTreeNode() {
 MTreeNode::MTreeNode(MTreeNode* parent)
 {
     m_parent = parent;
-    m_distance = parent->distance() + 1;
+    m_distance = parent == nullptr ? 0 : parent->m_distance + 1;
 }
 
 MTreeNode::~MTreeNode()
 {
-    delete[] m_children;
+    for (int i = 0; i < m_child_count; i++) {
+        delete (m_children + i);
+    }
 }
 
 const MTreeNode* MTreeNode::child(int i) const
@@ -33,8 +35,8 @@ bool MTreeNode::addChild(int i, int j)
 
 MTreeNode* MTreeNode::hasChild(int i, int j)
 {
-    for (int i = 0; i < childCount(); i++) {
-        MTreeNode *child = m_children[i];
+    for (int t = 0; t < childCount(); t++) {
+        MTreeNode *child = m_children[t];
         if (child->m_i == i && child->m_j == j)
             return child;
     }

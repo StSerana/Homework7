@@ -101,9 +101,17 @@ bool Maze::removeConnection(int i1, int j1, int i2, int j2)
 
 void Maze::printMaze()
 {
+	char ver = 179;
+	char verch = 180;
 	char down = 191;
 	char right = 192;
+	char up = 193;
+	char dch = 194;
+	char rightch = 195;
+	char hor = 196;
+	char plus = 197;
 	char zero = 248;
+
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
 			if (hasConnection(i, j, i + 1, j)) {
