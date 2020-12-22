@@ -62,7 +62,7 @@ MTreeNode* MTreeNode::searchNode(const int i, const int j) const
         nodes.pop();
         if (node->m_i == i && node->m_j == j)
             return (MTreeNode*)node;
-        for (int i = 0; i < node->childCount() ; i++)
+        for (int i = 0; i < node->m_child_count; i++)
             nodes.push(node->m_children[i]);
     }
     return nullptr;
