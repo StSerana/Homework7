@@ -19,8 +19,8 @@ Maze::Maze(int n, int m)
 	m_field = j;
 	m_columns = n;
 	m_rows = m;
-	start[0] = rand() % n;
-	start[1] = start[0] != 0 ? 0 : rand() % m;
+	start[0] = 0; // rand() % n;
+	start[1] = 0; // start[0] != 0 ? 0 : rand() % m;
 }
 
 Maze::~Maze()
@@ -101,7 +101,7 @@ bool Maze::removeConnection(int i1, int j1, int i2, int j2)
 
 void Maze::printMaze()
 {
-	/* //Homework 8
+	 //Homework 8
 	char down = 191;
 	char right = 192;
 	char zero = 248;
@@ -123,7 +123,8 @@ void Maze::printMaze()
 		}
 		cout << endl;
 	} 
-	*/
+	
+	/*
 	 //Homework 9
 	for (int i = 0; i < this->m_rows; i++)
 	{
@@ -141,5 +142,5 @@ void Maze::printMaze()
 		}
 		std::cout << std::endl;
 	}
-	
+	*/
 }

@@ -7,27 +7,32 @@
 #include <queue>
 using namespace std;
 
+int weights[5][5];
 Maze* createMaze(Maze* maze);
 void buildFullMaze(Maze& iMaze, MTreeNode& tree);
+void addWeights(MTreeNode* node, Maze& maze, int weights[5][5]);
+void  printWeights(int weights[5][5]);
+
 
 
 int main()
 {
-	const int n = 50;
-	const int m = 50;
-	int weights[n][m];
+	const int n = 5;
+	const int m = 5;
 	Maze* maze = new Maze(n, m);
-	//maze = createMaze(maze);
+	maze = createMaze(maze);
 	weights[maze->startX()][maze->startY()] = 0;
 	MTreeNode* tree = MTreeNode::beginTree(maze->startX(), maze->startY());
-	buildFullMaze(*maze, *tree);
+	//buildFullMaze(*maze, *tree);
 	maze->printMaze();
 	cout << endl;
+	addWeights(tree, *maze, weights);
+	printWeights(weights);
 	return 0;
 }
 
 Maze* createMaze(Maze* maze) {
-	/* //Homework 8
+	 //Homework 8
 	int i = 0;
 	int j = 1;
 	while (i * j < 5 * 5 && i + 1 <= 5 && j + 1 <= 5) {
@@ -37,8 +42,9 @@ Maze* createMaze(Maze* maze) {
 		j++;
 	}
 	return maze;
-	*/
-	 //Homework 9
+	
+	/*
+	//Homework 9
 	for (int i = 0; i < maze->rows(); i++)
 	{
 		for (int j = 0; j <maze->columns() - 1 - i; j++)
@@ -49,6 +55,7 @@ Maze* createMaze(Maze* maze) {
 		maze->makeConnection(i, i + 1, i + 1, i + 1);
 	}
 	return maze;
+	*/
 }
 
 bool isConnected(Maze& iMaze, const int i, const int j)
@@ -104,7 +111,7 @@ void buildFullMaze(Maze& iMaze, MTreeNode& tree)
 		}
 	}
 	bool wasDisconnected = true;
-	while (wasDisconnected) // adding points that were not added during the main generation
+	while (wasDisconnected)
 	{
 		wasDisconnected = false;
 		for (int i = 0; i < iMaze.rows(); i++)
