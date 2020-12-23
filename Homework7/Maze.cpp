@@ -59,9 +59,9 @@ bool Maze::hasConnection(int i1, int j1, int i2, int j2)
 		j1 < 0 || j1 > m_rows - 1 || j2 < 0 || j2 >  m_rows - 1)
 		return false;
 	if (i1 == i2)
-		return this->m_field[i1 * m_columns + std::min(j1, j2)].right();
+		return m_field[i1 * m_columns + std::min(j1, j2)].right();
 	if (j1 == j2)
-		return this->m_field[std::min(i1, i2) * m_rows + j1].down();
+		return m_field[std::min(i1, i2) * m_rows + j1].down();
 	return false;
 }
 
@@ -73,13 +73,13 @@ bool Maze::makeConnection(int i1, int j1, int i2, int j2)
 		return false;
 	if (i1 == i2)
 	{
-		this->m_field[i1 * 5 + std::min(j1, j2)].m_right = true;
+		m_field[i1 * 5 + std::min(j1, j2)].m_right = true;
 		return true;
 	}
 		
 	if (j1 == j2)
 	{
-		this->m_field[std::min(i1, i2) * 5 + j1].m_down = true;
+		m_field[std::min(i1, i2) * 5 + j1].m_down = true;
 		return true;
 	}
 		
@@ -93,9 +93,9 @@ bool Maze::removeConnection(int i1, int j1, int i2, int j2)
 		j1 < 0 || j1 > m_rows - 1 || j2 < 0 || j2 >  m_rows - 1)
 		return false;
 	if (i1 == i2)
-		return !(this->m_field[i1 * 5 + std::min(j1, j2)].right());
+		return !(m_field[i1 * 5 + std::min(j1, j2)].right());
 	if (j1 == j2)
-		return !(this->m_field[std::min(i1, i2) * 5 + j1].down());
+		return !(m_field[std::min(i1, i2) * 5 + j1].down());
 	return false;
 }
 
@@ -125,9 +125,9 @@ void Maze::printMaze()
 	} 
 	*/
 	 //Homework 9
-	for (int i = 0; i < this->m_rows; i++)
+	for (int i = 0; i < m_rows; i++)
 	{
-		for (int j = 0; j < this->m_columns; j++)
+		for (int j = 0; j < m_columns; j++)
 		{
 			if (i == start[0] && j == start[1])
 			{
@@ -136,8 +136,8 @@ void Maze::printMaze()
 			}
 			std::cout << symbols[(hasConnection(i, j, i - 1, j) ? 1 : 0) +
 			(hasConnection(i, j, i, j - 1) ? 8 : 0) +
-			(this->cell(i, j).m_right ? 2 : 0) +
-			(this->cell(i, j).m_down ? 4 : 0)];
+			(cell(i, j).m_right ? 2 : 0) +
+			(cell(i, j).m_down ? 4 : 0)];
 		}
 		std::cout << std::endl;
 	}

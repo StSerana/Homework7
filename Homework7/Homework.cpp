@@ -20,7 +20,18 @@ int main()
 	//maze = createMaze(maze);
 	weights[maze->startX()][maze->startY()] = 0;
 	MTreeNode* tree = MTreeNode::beginTree(maze->startX(), maze->startY());
-	buildFullMaze(*maze, *tree);
+	buildFullMaze(*maze, *tree); 
+	int maxWeight = 0;
+	double sumWeight = 0;
+	for (int i = 0; i < maze->rows(); i++)
+		for (int j = 0; j < maze->columns(); j++)
+		{
+			MTreeNode* node = tree->searchNode(i, j);
+			if (node->distance() > maxWeight)
+				maxWeight = node->distance();
+			sumWeight += node->distance();
+		}
+
 	maze->printMaze();
 	cout << endl;
 	return 0;
@@ -88,9 +99,9 @@ void buildFullMaze(Maze& iMaze, MTreeNode& tree)
 		{
 			canConnect = false;
 			for (pair<int, int> p : possibleDirections) {
-				if (node.i() < 0 || node.i() > iMaze.columns() - 1 || node.i() + p.first < 0 || node.i() + p.first > iMaze.columns() - 1 ||
-					node.j() < 0 || node.j() > iMaze.rows() - 1 || node.j() + p.second < 0 || node.j() + p.second >  iMaze.rows() - 1
-					|| isConnected(iMaze, p.first, p.second))
+				if (node.i() + p.first < 0 || node.i() + p.first > iMaze.columns() - 1 ||
+					 node.j() + p.second < 0 || node.j() + p.second >  iMaze.rows() - 1
+					|| isConnected(iMaze, node.i() + p.first, node.j() + p.second))
 					continue;
 				canConnect = true;
 				if (rand() % 5 == 0)
@@ -104,7 +115,7 @@ void buildFullMaze(Maze& iMaze, MTreeNode& tree)
 		}
 	}
 	bool wasDisconnected = true;
-	while (wasDisconnected) // adding points that were not added during the main generation
+	while (wasDisconnected)
 	{
 		wasDisconnected = false;
 		for (int i = 0; i < iMaze.rows(); i++)
